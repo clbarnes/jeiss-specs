@@ -7,7 +7,7 @@ import sys
 import logging
 from collections import defaultdict
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("tsvfmt")
 
 
 def fmt_lines(orig_lines, fname=None):

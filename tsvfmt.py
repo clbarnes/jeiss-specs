@@ -14,7 +14,8 @@ def fmt_lines(orig_lines, fname=None):
     out_lines = []
     for line in orig_lines:
         out_lines.append("\t".join(s.strip() for s in line.strip().split("\t")) + "\n")
-    out_lines.append("\n")
+    while out_lines[-1] == "\n":
+        out_lines.pop()
     prefix = "" if not fname else "fname:"
     diff = list(unified_diff(orig_lines, out_lines, prefix+"original", prefix+"formatted"))
     return out_lines, diff
@@ -64,7 +65,7 @@ def main(args=None):
     parser.add_argument("-c", "--check", action="store_true", help="Do not write out changes, but error if any changes would be made")
     parsed = parser.parse_args(args)
 
-    sys.exit(_main(parsed.paths, parsed.check))
+    sys.exit(_main(parsed.path, parsed.check))
 
 
 def _main(paths, check):
@@ -91,4 +92,5 @@ def _main(paths, check):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()

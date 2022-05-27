@@ -39,3 +39,9 @@ In some versions, the shape depends on the value of an earlier field: in that ca
 For testing purposes, `example_files.tsv` lists publicly-accessible URLs to `.dat` files for specific versions.
 
 The TSV lists the version number, the hex digest of the MD5 hashsum of the file, and a public URL to the file.
+
+## Attribution
+
+These specs were generated from Davis Bennett's [fibsem-tools](https://github.com/janelia-cosem/fibsem-tools).
+Thanks also to Mark Kittisopikul for his work on sanitising the format,
+and to Shan Xu and the Hess lab for their creation of the Jeiss FIBSEM.

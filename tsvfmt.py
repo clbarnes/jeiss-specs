@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from argparse import ArgumentParser
-from pathlib import Path
-from difflib import unified_diff
-import sys
 import logging
+import sys
+from argparse import ArgumentParser
 from collections import defaultdict
+from difflib import unified_diff
+from pathlib import Path
 
 logger = logging.getLogger("tsvfmt")
 

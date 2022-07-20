@@ -4,12 +4,15 @@ Specifications, in TSV format, of the metadata in the header of `.dat` files pro
 
 ## General notes
 
+- The value of `FileMagicNum` must be 3555587570
 - Arrays are in column-major ("Fortran") order.
 - Multi-byte data is in big-endian byte order, little-endian bit order.
 - Date is stored as `DD/MM/YYYY`, for some reason.
 - `specs/v0.tsv` is not a spec in its own right, but a core metadata common across all versions. In some cases, these fields determine the size of later metadata fields, so it's convenient to parse this first.
 - The image data begins at offset 1024, and has shape (`ChanNum`, `XResolution`, `YResolution`).
 - There may be a binary footer of indeterminate length, after the image data.
+
+Some of this information is encoded in `misc.toml`.
 
 ## dtype
 

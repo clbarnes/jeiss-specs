@@ -26,24 +26,53 @@ def fmt_lines(orig_lines, fname=None):
     return out_lines, diff
 
 
-def fmt_tsv(fpath: Path, write=False):
+def fmt_tsv(fpath: Path, write=False, sort=False):
     orig_lines = fpath.read_text().splitlines(keepends=True)
     out_lines, diff = fmt_lines(orig_lines, str(fpath))
+    if sort:
+        out_lines, needed_sort = sort_lines(out_lines)
+    else:
+        needed_sort = False
 
     if write:
         fpath.write_text("".join(out_lines))
 
-    return diff
+    return diff, needed_sort
 
 
-def fmt_stdin(write=False):
+def fmt_stdin(write=False, sort=False):
     orig_lines = sys.stdin.readlines()
     out_lines, diff = fmt_lines(orig_lines, "-")
+
+    if sort:
+        out_lines, needed_sort = sort_lines(out_lines)
+    else:
+        needed_sort = False
 
     if write:
         sys.stdout.writelines(out_lines)
 
-    return diff
+    return diff, needed_sort
+
+
+def sort_lines(lines: list[str]) -> tuple[list[str], bool]:
+    """Sort lines by offset column.
+
+    First line is skipped.
+
+    Parameters
+    ----------
+    lines : list[str]
+
+    Returns
+    -------
+    tuple[list[str], bool]
+        Sorted lines, and whether the output is different to the input
+    """
+    headers, *other = lines
+    other.sort(key=lambda x: int(x.split("\t")[2]))
+    other.insert(0, headers)
+    return other, other != lines
 
 
 def expand_args(args):
@@ -76,6 +105,11 @@ def main(args=None):
     )
 
     parser.add_argument(
+        "-s", "--sort", action="store_true",
+        help="Sort rows by `offset` column",
+    )
+
+    parser.add_argument(
         "-c",
         "--check",
         action="store_true",
@@ -84,29 +118,31 @@ def main(args=None):
             "but error if any changes would be made"
         ),
     )
+
     parsed = parser.parse_args(args)
 
-    sys.exit(_main(parsed.path, parsed.check))
+    sys.exit(_main(parsed.path, parsed.check, parsed.sort))
 
 
-def _main(paths, check):
+def _main(paths, check, sort):
     all_paths = expand_args(paths)
     if not all_paths:
         logger.info("No paths given, nothing to do")
         return 0
 
     diffs = []
+    needed_sort = False
     for path in all_paths:
         if path is None:
-            diff = fmt_stdin(not check)
+            diff, needed_sort = fmt_stdin(not check, sort)
         else:
-            diff = fmt_tsv(path, not check)
-        if diff:
+            diff, needed_sort = fmt_tsv(path, not check, sort)
+        if diff or needed_sort:
             logger.info("Format %s", path)
         diffs.extend(diff)
 
-    if check and diffs:
-        logger.warning("File(s) not formatted")
+    if check and (diffs or sort):
+        logger.warning("File(s) incorrectly formatted")
         return 1
 
     return 0

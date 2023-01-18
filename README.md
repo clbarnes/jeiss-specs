@@ -39,9 +39,31 @@ In some versions, the shape depends on the value of an earlier field: in that ca
 
 ## Example files
 
+### Public images
+
 For testing purposes, `example_files.tsv` lists publicly-accessible URLs to `.dat` files for specific versions.
 
 The TSV lists the version number, the hex digest of the MD5 hashsum of the file, and a public URL to the file.
+
+### Example metadata
+
+The `example_metadata` directory contains truncated `.dat` files,
+containing only the metadata portion, again for testing purposes.
+
+## Contributing
+
+To add a new Jeiss .dat specification:
+
+1. Create a new specification TSV in the `specs` dir (possibly by copying the TSV for the version it's based on)
+2. Update it to reflect the contents of the new version
+    - You can do this in most spreadsheet editors, like [LibreOffice Calc](https://www.libreoffice.org/) or Microsoft Excel
+3. If you introduce or modify any enums, update the TSVs in the `enums` directory
+4. Make an example image pubicly available and add it to the `example_files.tsv`
+    - MD5 digests can be calculated with `md5sum $YOUR_DAT_PATH`.
+5. Include just the metadata portion of the image in `example_metadata`
+    - Files can be truncated with `head -c 1024 $YOUR_DAT_PATH > truncated.dat`
+6. Ensure all the TSV files are correctly formatted using `scripts/tsvfmt.py enums specs example_files.tsv`
+7. Raise a pull request to add your changes to the mainline repository
 
 ## Attribution
 

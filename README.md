@@ -58,7 +58,7 @@ The TSV lists the version number, the hex digest of the MD5 hashsum of the file,
 
 ### Example metadata
 
-The `example_metadata` directory contains truncated `.dat` files,
+The `example_metadata` directory contains truncated forms of the example `.dat` files as above,
 containing only the metadata portion, again for testing purposes.
 
 ## Contributing

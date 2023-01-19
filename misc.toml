@@ -2,4 +2,7 @@ array_order = "F"
 byte_endianness = ">"
 magic_number = 3555587570
 data_offset = 1024
-date_format = "%d/%m/%Y"
+
+[date]
+format = "%d/%m/%Y"
+fields = ["SWdate"]

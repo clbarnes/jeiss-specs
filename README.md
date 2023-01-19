@@ -2,6 +2,17 @@
 
 Specifications, in TSV format, of the metadata in the header of `.dat` files produced by "Jeiss" Focused Ion Beam Scanning Electron Microscopes.
 
+## Warning
+
+If you're thinking about using this information to write a package to read .dat files, stop!
+The specs listed here, while the best documentation we have, are 3rd-party, and largely based on hearsay.
+
+Rather than basing your image analysis workflow on this format,
+consider immediately converting it to something widely-supported and self-documenting, then forgetting you ever saw the .dat.
+
+[jeiss-convert](https://github.com/clbarnes/jeiss-convert) is a python package and CLI which uses these specs to write all information in the .dat into HDF5 groups.
+Prefer this format for all your image workflow needs.
+
 ## General notes
 
 - The value of `FileMagicNum` must be 3555587570

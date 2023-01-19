@@ -76,8 +76,13 @@ To add a new Jeiss .dat specification:
 6. Ensure all the TSV files are correctly formatted using `scripts/tsvfmt.py enums specs example_files.tsv`
 7. Raise a pull request to add your changes to the mainline repository
 
+## Prior art
+
+Jeiss .dat reading was implemented, prior to this project, in MATLAB https://github.com/david-hoffman/FIB-SEM-Aligner (now taken down, but vendorised [here](https://github.com/clbarnes/jfibsem_dat/tree/main/reference)), and Java https://github.com/fiji/IO/blob/master/src/main/java/sc/fiji/io/FIBSEM_Reader.java
+
+The specifications in this package were generated from Davis Bennett's [fibsem-tools](https://github.com/janelia-cosem/fibsem-tools).
+
 ## Attribution
 
-These specs were generated from Davis Bennett's [fibsem-tools](https://github.com/janelia-cosem/fibsem-tools).
 Thanks also to Mark Kittisopikul for his work on sanitising the format,
 and to Shan Xu and the Hess lab for their creation of the Jeiss FIBSEM.

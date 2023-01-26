@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Read LabView's internal docs for file memory layout,
 and extract useful information from it as a TSV.

@@ -1,6 +1,7 @@
 array_order = "F"
 byte_endianness = ">"
-magic_number = 3555587570
+magic_number = 0xd3edf5f2
+# magic_number = 3555587570
 data_offset = 1024
 
 [date]

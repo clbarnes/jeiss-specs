@@ -66,7 +66,7 @@ def sort_lines(lines: list[str]) -> tuple[list[str], bool]:
         Sorted lines, and whether the output is different to the input
     """
     headers, *other = lines
-    other.sort(key=lambda x: int(x.split("\t")[2]))
+    other.sort(key=lambda x: int(x.split("\t")[0]))
     other.insert(0, headers)
     return other, other != lines
 

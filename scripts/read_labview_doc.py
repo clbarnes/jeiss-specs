@@ -2,6 +2,10 @@
 """
 Read LabView's internal docs for file memory layout,
 and extract useful information from it as a TSV.
+
+Note that this does not create a valid spec;
+you will need to fill in the field names and set the shape yourself.
+Additionally, these docs have contained errors.
 """
 import re
 from pathlib import Path

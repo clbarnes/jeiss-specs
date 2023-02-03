@@ -86,12 +86,11 @@ offset	dtype	shape	name
 702	>f4	0	MillingPIDI
 706	>f4	0	MillingPIDD
 800	>S30	0	MachineID
-980	>f4	0	SEMSpecimenI
 850	>f4	0	Temperature
 854	>f4	0	FaradayCupI
 858	>f4	0	FIBSpecimenI
 862	>f4	0	BeamDump1I
-866	>f4	0	SEMSpecimenICurrent
+866	>f4	0	SEMSpecimenI
 870	>f4	0	MillingYVoltage
 874	>f4	0	FocusIndex
 878	>u4	0	FIBSliceNum

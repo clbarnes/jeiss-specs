@@ -15,15 +15,21 @@ Prefer this format for all your image workflow needs.
 
 ## General notes
 
-- The value of `FileMagicNum` must be 3555587570
+- The value of `FileMagicNum` must be `3555587570` (`0xd3edf5f2`)
 - Arrays are in column-major ("Fortran") order.
 - Multi-byte data is in big-endian byte order, little-endian bit order.
 - Date is stored as `DD/MM/YYYY`, for some reason.
 - `specs/v0.tsv` is not a spec in its own right, but a core metadata common across all versions. In some cases, these fields determine the size of later metadata fields, so it's convenient to parse this first.
 - The image data begins at offset 1024, and has shape (`ChanNum`, `XResolution`, `YResolution`).
-- There may be a binary footer of indeterminate length, after the image data.
 
 Some of this information is encoded in `misc.toml`.
+
+### Footer
+
+Depending on the shape of images ([see here](https://github.com/clbarnes/jeiss-convert/issues/9#issue-1587896996)), the image data may be zero-padded at the end.
+
+After this padding, there is a "recipe" or "variant" block, which contains a LabView data structure containing additional metadata which cannot easily be deserialised by other applications.
+The `FileLength` metadata item indicates the byte offset where this block starts.
 
 ## dtype
 
@@ -69,7 +75,7 @@ To add a new Jeiss .dat specification:
 2. Update it to reflect the contents of the new version
     - You can do this in most spreadsheet editors, like [LibreOffice Calc](https://www.libreoffice.org/) or Microsoft Excel
 3. If you introduce or modify any enums, update the TSVs in the `enums` directory
-4. Make an example image pubicly available and add it to the `example_files.tsv`
+4. Make an example image (preferably a small one) pubicly available and add it to the `example_files.tsv`
     - MD5 digests can be calculated with `md5sum $YOUR_DAT_PATH`.
 5. Include just the metadata portion of the image in `example_metadata`
     - Files can be truncated with `head -c 1024 $YOUR_DAT_PATH > truncated.dat`
